@@ -1,5 +1,7 @@
 package com.jameseng.jevendas.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jameseng.jevendas.dto.SaleDTO;
+import com.jameseng.jevendas.dto.SaleSuccessDTO;
+import com.jameseng.jevendas.dto.SaleSumDTO;
 import com.jameseng.jevendas.entities.Sale;
 import com.jameseng.jevendas.repositories.SaleRepository;
 import com.jameseng.jevendas.repositories.SellerRepository;
@@ -32,5 +36,19 @@ public class SaleService {
 		//return result.stream().map(x -> new SaleDTO(x)).collect(Collectors.toList());
 		
 		return result.map(x -> new SaleDTO(x));
+	}
+	
+	//Total de vendas (R$) por vendedor
+	@Transactional(readOnly=true) //não precisa fazer looking no banco de dados
+	public List<SaleSumDTO> amountGroupedBySeller() {
+		
+		return repository.amountGroupedBySeller();
+	}
+	
+	//taxa de sucesso (%) por vendedor
+	@Transactional(readOnly=true) //não precisa fazer looking no banco de dados
+	public List<SaleSuccessDTO> successGroupedBySeller() {
+		
+		return repository.successGroupedBySeller();
 	}
 }

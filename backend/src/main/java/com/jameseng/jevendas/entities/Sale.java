@@ -19,7 +19,7 @@ public class Sale {
 	private Long id;
 	private Integer visited;
 	private Integer deals;
-	private Double amount;
+	private Double amount; //quantia das vendas
 	private LocalDate date;
 	
 	@ManyToOne //muitos para um
